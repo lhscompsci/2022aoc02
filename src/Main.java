@@ -43,24 +43,38 @@ public class Main {
 
        
         ArrayList<Long> elves = new ArrayList<>();
-        long sum = 0L;
+        long totalScore = 0L;
         while(infile.hasNext()){
             String next = infile.nextLine();
-            if(next.length()==0){
-                elves.add(sum);
-                sum = 0L;
+            Scanner play = new Scanner(next);
+            String opp = play.next();
+            String me = play.next();
+            int score = (me.equals("X")?1:(me.equals("Y")?2:3));
+            if(opp.equals("R")&&me.equals("S")){
+                score += 0;
+            }
+            else if(opp.equals("R")&&me.equals("P")) {
+                score += 6;
+            }
+            else if(opp.equals("P")&&me.equals("R")) {
+                score += 0;
+            }
+            else if(opp.equals("P")&&me.equals("S")) {
+                score += 6;
+            }
+            else if(opp.equals("S")&&me.equals("P")) {
+                score += 0;
+            }
+            else if(opp.equals("S")&&me.equals("R")) {
+                score += 6;
             }
             else {
-                sum += Long.parseLong(next);
+                score += 3;
             }
+            totalScore += (long)score;
+    }
 
-        }
-        if(sum != 0L)
-            elves.add(sum);
-        Collections.sort(elves);
-        Collections.reverse(elves);
-        Long ans = elves.get(0);
-        out.println(ans);
+        out.println(totalScore);
 
 
     }
