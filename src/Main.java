@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) throws Throwable {
 
-        partOne();
+       // partOne();
         partTwo();
 
     }
@@ -17,32 +17,51 @@ public class Main {
         Scanner infile = new Scanner(new File("input.dat"));
 
       
-        ArrayList<Long> elves = new ArrayList<>();
-        long sum = 0L;
+
+        long totalScore = 0L;
         while(infile.hasNext()){
             String next = infile.nextLine();
-            if(next.length()==0){
-                elves.add(sum);
-                sum = 0L;
+            Scanner play = new Scanner(next);
+            String opp = play.next();
+            String me = play.next();
+            int score = 0;
+
+            if(me.equals("X")) {
+                if (opp.equals("A"))
+                    score = 3;
+                else if (opp.equals("B"))
+                    score = 1;
+                else
+                    score = 2;
+            }
+            else if(me.equals("Y")) {
+                if (opp.equals("A"))
+                    score = 4;
+                else if (opp.equals("B"))
+                    score = 5;
+                else
+                    score = 6;
             }
             else {
-                sum += Long.parseLong(next);
+                if (opp.equals("A"))
+                    score = 8;
+                else if (opp.equals("B"))
+                    score = 9;
+                else
+                    score = 7;
             }
 
+            totalScore += (long)score;
         }
-        if(sum != 0L)
-            elves.add(sum);
-        Collections.sort(elves);
-        Collections.reverse(elves);
-        long ans = elves.get(0) + elves.get(1) + elves.get(2);
-        out.println(ans);
+
+        out.println(totalScore);
     }
 
     private static void partOne() throws Throwable {
         Scanner infile = new Scanner(new File("test.dat"));
 
        
-        ArrayList<Long> elves = new ArrayList<>();
+
         long totalScore = 0L;
         while(infile.hasNext()){
             String next = infile.nextLine();
@@ -50,27 +69,29 @@ public class Main {
             String opp = play.next();
             String me = play.next();
             int score = (me.equals("X")?1:(me.equals("Y")?2:3));
-            if(opp.equals("R")&&me.equals("S")){
+
+            if(opp.equals("A")&&me.equals("Z")){
                 score += 0;
             }
-            else if(opp.equals("R")&&me.equals("P")) {
+            else if(opp.equals("A")&&me.equals("Y")) {
                 score += 6;
             }
-            else if(opp.equals("P")&&me.equals("R")) {
+            else if(opp.equals("B")&&me.equals("X")) {
                 score += 0;
             }
-            else if(opp.equals("P")&&me.equals("S")) {
+            else if(opp.equals("B")&&me.equals("Z")) {
                 score += 6;
             }
-            else if(opp.equals("S")&&me.equals("P")) {
+            else if(opp.equals("C")&&me.equals("Y")) {
                 score += 0;
             }
-            else if(opp.equals("S")&&me.equals("R")) {
+            else if(opp.equals("C")&&me.equals("X")) {
                 score += 6;
             }
             else {
                 score += 3;
             }
+            out.println(score);
             totalScore += (long)score;
     }
 
